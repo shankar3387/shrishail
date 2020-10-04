@@ -1,0 +1,196 @@
+.section.supplier-hero {
+    margin-top: 64px;
+    display: block;
+    background-image: url(https://static.meeshosupply.com/web/images/supplier-hero.jpg);
+    background-position: 50% 100%;
+    background-attachment: scroll;
+}
+
+.section.dreams, .section.supplier-hero {
+    height: 700px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.section {
+    padding-top: 96px;
+    padding-bottom: 96px;
+}
+.container {
+    padding: 0!important;
+    display: block;
+    width: 1100px!important;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.description {
+    display: inline-block;
+    width: 534px;
+    float: none;
+    clear: none;
+}
+
+.heading.cover {
+    font-size: 40px;
+    line-height: 56px;
+}
+.heading {
+    font-family: Noto Serif,sans-serif;
+    font-size: 32px;
+    line-height: 40px;
+    font-weight: 400;
+}
+.sub-heading {
+    margin-top: 24px;
+    color: #8a8a8a;
+    font-size: 20px;
+    line-height: 28px;
+}
+.become-supplier-link, .reseller-details-name {
+    margin-top: 32px;
+}
+.supplier-how-to-works {
+    background-color: #fafafa;
+}
+.section {
+    padding-top: 96px;
+    padding-bottom: 96px;
+}
+.why-sell-through-us-content {
+    margin-top: 64px;
+}
+.why-sell-through-us-content .number-description {
+    margin-top: 16px;
+}
+.section.footer {
+    padding-bottom: 64px;
+    background-image: -webkit-linear-gradient(0deg,#ff79b0,#c67cd7);
+    background-image: linear-gradient(90deg,#ff79b0,#c67cd7);
+}
+.number-heading {
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: normal;
+    color: #525252;
+}
+.become-supplier-link a.button {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 12px 40px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: center;
+    color: #fff;
+}
+.button {
+    text-align: center;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    background-image: -webkit-linear-gradient(0deg,#ff79b0,#c67cd7);
+    background-image: linear-gradient(90deg,#ff79b0,#c67cd7);
+    font-size: 16px;
+}
+.column {
+    padding-right: 16px;
+    padding-left: 16px;
+}
+
+.about-us-title {
+    font-family: Noto Serif,sans-serif;
+    width: 533px;
+    max-width: 100%;
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: normal;
+    color: #292929;
+}
+
+.number-heading {
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: normal;
+    color: #525252;
+}
+.why-sell-through-us-content .number-description {
+    margin-top: 16px;
+}
+.why-sell-through-us .second-row {
+    margin-top: 48px;
+}
+
+.number-description {
+    font-size: 16px;
+    line-height: 28px;
+    letter-spacing: normal;
+    color: #8f8f8f;
+}
+
+.supplier-how-to-works {
+    background-color: #fafafa;
+}
+
+.about-us-title {
+    font-family: Noto Serif,sans-serif;
+    width: 533px;
+    max-width: 100%;
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: normal;
+    color: #292929;
+}
+.supplier-how-to-works {
+    background-color: #fafafa;
+}
+.seller-form-fill-up .seller-stats {
+    background-color: #fff;
+}
+
+.seller-form-fill-up .seller-form-header {
+    font-size: 32px;
+    line-height: 40px;
+    color: #424242;
+    font-family: Noto Serif,sans-serif;
+}
+.seller-form-fill-up .seller-form-text {
+    font-size: 16px;
+    line-height: 1.4;
+    margin-top: 24px;
+    color: #8f8f8f;
+}
+.seller-form-fill-up .seller-form-text2 {
+    margin-top: 64px;
+    color: #525252;
+    font-size: 16px;
+    line-height: 1.5;
+}
+.seller-form-list {
+    margin-top: 8px;
+}
+.seller-form-fill-up .seller-form-text3 {
+    margin-top: 24px;
+    color: #525252;
+    font-size: 16px;
+    line-height: 1.5;
+}
+.seller-form-list>div {
+    margin-top: 16px;
+}
+.seller-form-list>div>img {
+    height: 16px;
+    width: 16px;
+    margin-right: 8px;
+}
+img {
+    max-width: 100%;
+    vertical-align: middle;
+    display: inline-block;
+}
+.seller-form-list>div>div {
+    display: inline-block;
+}
