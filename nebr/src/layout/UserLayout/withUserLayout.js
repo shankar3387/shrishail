@@ -10,7 +10,7 @@ import propTypes from 'prop-types';
 import MenueItems from './MenueItems';
 import { Div, SmallScreenAuthInfo, SmallScreenSearch } from './style';
 import HeaderSearch from '../../components/header-search/header-search';
-import AuthInfo from '../../components/utilities/auth-info/info';
+import AuthInfo from '../../UserComponent/utilities/auth-info/info';
 import { changeRtlMode, changeLayoutMode } from '../../redux/themeLayout/actionCreator';
 
 const { darkTheme } = require('../../config/theme/themeVariables');
@@ -195,7 +195,7 @@ const ThemeLayout = WrappedComponent => {
                   </Link>
                 </Col>
 
-                <Col offset={1} lg={8} md={6} sm={0} xs={0}>
+                <Col offset={1} lg={9} md={7} sm={0} xs={0}>
                   <h2 className="my-4">User Dashboard</h2>
                   {/* <HeaderSearch rtl={rtl} darkMode={darkMode} /> */}
                 </Col>

@@ -7,28 +7,26 @@ import ErrorText from '../../../components/common/ErrorText';
 
 
 const validationSchema = yup.object().shape({
-  userName: yup.string()
+  user_name: yup.string()
 
     .required("user name is required"),
   email: yup.string()
     .email()
-    .test({
-      name: 'duplicate-email-check',
-      params: 'value',
-      message: 'Duplicate email already exists',
-      test:async (value) => { // Notice this, adding curly braces will require you to put a return statement
-       return AuthSer.postEmailValidation({ email: value })
-            .then(result => {
-                console.log(result)
-                if (result.error) {
-                    return false
-                } else {
-                    return true
-                }
-            })
-            .catch(err => console.log(err))
-    }
-    }).required("Email is required"),
+    .required("Email is required")
+    .test('duplicate-email-check','Duplicate email already exists',
+     async (value) => { // Notice this, adding curly braces will require you to put a return statement
+      return AuthSer.postEmailValidation({ email: value })
+           .then(result => {
+               console.log(result.error)
+               if (result.error) {
+                   return false
+               } else {
+                   return true
+               }
+           })
+           .catch(err => console.log(err))
+   }
+    ),
   password: yup.string()
     .required("Password is required")
     .min(6, " Password length is 6"),
@@ -63,7 +61,7 @@ export default class Register extends Component {
                 <div className="card-body">
                   <h5 className="card-title text-center">Community Signup</h5>
                   <Formik
-                    initialValues={{ email: "", password: "", confirmPassword: "", userName: "", phone: "", otp: "" }}
+                    initialValues={{ email: "", password: "", confirmPassword: "", user_name: "", phone: "", otp: "" }}
                     onSubmit={(userData) => {
                       this.onSubmit(userData)
 
@@ -83,7 +81,7 @@ export default class Register extends Component {
                           <div className="form-group" />
                           <div className="form-group">
                             <input
-                              name="userName"
+                              name="user_name"
                               type="text"
 
                               className="form-control"
@@ -92,10 +90,10 @@ export default class Register extends Component {
                               placeholder="Your Name"
                               autoFocus
                             />
-                            {errors.userName
-                              && touched.userName
+                            {errors.user_name
+                              && touched.user_name
                               && (
-                                <ErrorText title={errors.userName
+                                <ErrorText title={errors.user_name
                                 } />
                               )}
                           </div>

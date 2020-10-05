@@ -15,19 +15,18 @@ export class Community extends Component {
 
   handleChange = (selectedOption) => {
     const { logChange } = this.props;
-    console.log(selectedOption)
     localStorage.setItem('communityValue',selectedOption.label)
-    window.location.reload(false);
     logChange(selectedOption)
 
   }
 
 
   render() {
+    const { logChange, selectedValue = "", name } = this.props;
     return (
       <div>
         <div>
-          <Select options={this.options} onChange={this.handleChange} />
+          <Select  options={this.options} onChange={this.handleChange} />
         </div>
       </div>
     );

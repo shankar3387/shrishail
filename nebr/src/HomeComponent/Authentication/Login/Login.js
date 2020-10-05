@@ -16,20 +16,28 @@ const validationSchema = yup.object().shape({
   password: yup.string()
     .required("Password is required")
     .min(6, " Password length is 6"),
-  community: yup.string()
-    .required("required")
+    // community: yup.string()
+    //   .required("required")
 })
 
 export default class Login extends Component {
 
   onSubmit = async (userData) => {
-    console.log(this.props, userData);
-    const { history } = this.props;
     const { email, password, community } = userData
+    const { history } = this.props;
     // console.log(this)
     // e.preventDefault();
-
-
+    AuthSer.postUserLogin(userData).then(result=>{
+      const login = result.data.userDetails
+      if(login){
+         localStorage.setItem('login_type', login.login_type);
+        if (localStorage.getItem('login_type') === 'admin') {
+          history.push('/admin');
+          } else {
+          history.push('/user');
+          }
+      }
+    })
 
     // this.setState({ error: false });
 
@@ -48,14 +56,14 @@ export default class Login extends Component {
     //   this.setState({errorMessage :login.message})
     // }
 
-    localStorage.setItem('login_type', 'admin');
-    this.setState({ errorMessage: 'login.message' });
-    console.log(this.state);
-    if (localStorage.getItem('login_type') === 'admin') {
-      history.push('/admin');
-    } else {
-      history.push('/user');
-    }
+    // localStorage.setItem('login_type', 'admin');
+    // this.setState({ errorMessage: 'login.message' });
+    // console.log(this.state);
+    // if (localStorage.getItem('login_type') === 'admin') {
+    //   history.push('/admin');
+    // } else {
+    //   history.push('/user');
+    // }
   };
 
 
@@ -70,7 +78,7 @@ export default class Login extends Component {
                 <div className="card-body">
                   <h5 className="card-title text-center">Community Login</h5>
                   <Formik
-                    initialValues={{ email: "", password: "", community: "" }}
+                    initialValues={{ email: "", password: "" }}
                     onSubmit={(userData) => {
                       this.onSubmit(userData)
 
@@ -88,16 +96,16 @@ export default class Login extends Component {
                       return (
                         <>
                           <form onSubmit={handleSubmit} className="form-signin">
-                            <div className="form-group">
-                              <Community logChange={(value) => {
-                                setFieldValue("community", value)
+                            {/* <div className="form-group">
+                              <Community name="community" type='text' logChange={(value) => {
+                                setFieldValue("community", value.value)
                                 handleChange(value)
                               }}
-                                name="community" />
+                                 />
                             </div>
                             {errors.community && touched.community && (
                               <ErrorLabel>{errors.community}</ErrorLabel>
-                            )}
+                            )} */}
                             <div className="form-group">
                               <input
                                 onChange={handleChange}

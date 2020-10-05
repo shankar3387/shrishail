@@ -26,9 +26,7 @@ router.post(`/userregistration`, async(req, res) => {
 
 })
 router.post('/emailValidation', async(req,res)=>{
-    console.log(req.body.email)
     let isEmailExists = await userRegistration.findOne({ email: req.body.email });
-    console.log(isEmailExists)
     return res.status(200).send({
         error: isEmailExists ? true : false,
     })
@@ -60,19 +58,11 @@ router.delete(`/api/product/:id`, async(req, res) => {
 
 router.post('/userLogin', async(req, res) => {
     console.log(req.body, 'node')
-    let products = await userRegistration.find(req.body);
-    if (products.length) {
-        return res.status(200).send({
-            error: false,
-            products
-        })
-    } else {
-        return res.status(200).send({
-            error: true,
-            message: 'not exists',
-            products
-        })
-    }
+    let userDetails = await userRegistration.find(req.body);
+    console.log(userDetails)
+    res.status(200).send({
+        userDetails:userDetails[0]
+    })
 
 
 })

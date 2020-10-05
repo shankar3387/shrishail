@@ -61,6 +61,7 @@ export default class CommunityModal extends Component {
     // this.setState({ communityValue: val.label });
     localStorage.setItem('communityValue', val.label);
     console.log(`Selected: ${val.value}`);
+    window.location.reload(false);
     console.log(localStorage.getItem('communityValue'))
     ModalManager.close();
   };

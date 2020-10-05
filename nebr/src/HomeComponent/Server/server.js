@@ -4,17 +4,15 @@ import { DataService } from '../../../src/config/dataService/dataService'
 require('dotenv').config()
 export default {
     postRegistration: async (data) => {
-      return res = await axios.post(`/Auth/userregistration`,data);
+      return await axios.post(`/Auth/userregistration`,data);
     },
 
     getRegistration: async () => {
-        let res = await axios.get(`/Auth/registration`);
-        return res.data || [];
+        return await axios.get(`/Auth/registration`);
       },
 
     postUserLogin: async (data) =>{
-        let res = await axios.post(`/Auth/userLogin`,data);
-        return res.data || [];
+        return await axios.post(`/Auth/userLogin`,data);
     },
     postEmailValidation: async (data)=>{
       let res = await axios.post(`/Auth/emailValidation`,data);
