@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+nebr/node_modules
 /.pnp
 .pnp.js
 .vscode
@@ -9,7 +10,7 @@
 /coverage
 # production
 /build
-
+nebr/build
 # misc
 .DS_Store
 .env.local
