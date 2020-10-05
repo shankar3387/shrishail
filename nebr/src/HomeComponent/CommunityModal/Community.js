@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 export class Community extends Component {
   options = [
-    { value: '1', label: 'Notting Hill', id: '1', Locality: '', Pincode: '', City: '', Builder: '' },
+    { value: "1", label: 'Notting Hill' },
     { value: '2', label: 'Silver Oak' },
     { value: '3', label: 'Bagmane Temple Bells' },
     { value: '4', label: 'Mayberry' },
@@ -12,25 +12,21 @@ export class Community extends Component {
     { value: '6', label: 'Hermitage' },
   ];
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedValue: '',
-    };
+
+  handleChange = (selectedOption) => {
+    const { logChange } = this.props;
+    logChange(selectedOption.value)
+
   }
 
-//   logChange(val) {
-//     console.log(`Selected: ${val.value}`);
-
-//   }
-//   logChange() {const { logChange } = this.props;}
 
   render() {
-    const { logChange } = this.props;
+    const { logChange, selectedValue = "", name } = this.props;
+    console.log(logChange, selectedValue, name, "community")
     return (
       <div>
         <div>
-          <Select name="form-field-name" options={this.options} onChange={logChange} />
+          <Select options={this.options} onChange={this.handleChange} />
         </div>
       </div>
     );

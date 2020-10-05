@@ -3,29 +3,34 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import AuthSer from '../../Server/server';
 import Community from '../../CommunityModal/Community';
+import { Formik } from 'formik';
+import * as yup from 'yup';
+import { ErrorLabel } from '../../../components/common/ErrorText/styledComponents';
 // import store from 'store';
+
+
+const validationSchema = yup.object().shape({
+  email: yup.string()
+    .email()
+    .required("Email is required"),
+  password: yup.string()
+    .required("Password is required")
+    .min(6, " Password length is 6"),
+  community: yup.string()
+    .required("required")
+})
+
 export default class Login extends Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      items: {
-        email: '',
-      },
-      errorMessage: '',
-    };
-    //  this.refs;
-    this.handleChange = this.handleChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-  }
-
-  onSubmit = async (e) => {
-    console.log(this.props);
+  onSubmit = async (userData) => {
+    console.log(this.props, userData);
     const { history } = this.props;
+    const { email, password, community } = userData
     // console.log(this)
-    e.preventDefault();
-    const { username, password } = this.state;
-    
+    // e.preventDefault();
+
+
+
     // this.setState({ error: false });
 
     // if (!(username === 'george' && password === 'foreman')) {
@@ -42,7 +47,7 @@ export default class Login extends Component {
     // }else {
     //   this.setState({errorMessage :login.message})
     // }
-   
+
     localStorage.setItem('login_type', 'admin');
     this.setState({ errorMessage: 'login.message' });
     console.log(this.state);
@@ -52,16 +57,10 @@ export default class Login extends Component {
       history.push('/user');
     }
   };
-  childHandler = (e) =>{
-    console.log(e)
-  }
-  handleChange = e => {
-    const { name, value } = e.target;
-    this.setState({ items: { [name]: value } });
-  };
+
 
   render() {
-    const { errorMessage } = this.state;
+
     return (
       <div className="app-container" style={{ backgroundColor: '#cedaf3' }}>
         <div className="container">
@@ -70,43 +69,78 @@ export default class Login extends Component {
               <div className="card card-signin my-5">
                 <div className="card-body">
                   <h5 className="card-title text-center">Community Login</h5>
-                  <form onSubmit={this.onSubmit} className="form-signin">
-                    <div className="form-group">
-                         <Community logChange={this.childHandler} />
-                    </div>
-                    <div className="form-group">
-                      <input
-                        onChange={this.handleChange}
-                        name="email"
-                        type="text"
-                        className="form-control"
-                        placeholder="Email"
-                      />
-                    </div>
-                    <div className="form-row form-group">
-                      <div className="col">
-                        <input type="password" className="form-control" id placeholder="Password" name="password" />
-                      </div>
-                    </div>
-                    <div>{errorMessage}</div>
+                  <Formik
+                    initialValues={{ email: "", password: "", community: "" }}
+                    onSubmit={(userData) => {
+                      this.onSubmit(userData)
 
-                    <button className="btn btn-lg btn-warning text-white btn-block text-uppercase" type="submit">
-                      Login
+                    }}
+                    validationSchema={validationSchema}>
+                    {props => {
+                      const {
+                        values,
+                        touched,
+                        errors,
+                        handleChange,
+                        handleSubmit,
+                        setFieldValue
+                      } = props;
+                      return (
+                        <>
+                          <form onSubmit={handleSubmit} className="form-signin">
+                            <div className="form-group">
+                              <Community logChange={(value) => {
+                                setFieldValue("community", value)
+                                handleChange(value)
+                              }}
+                                name="community" />
+                            </div>
+                            {errors.community && touched.community && (
+                              <ErrorLabel>{errors.community}</ErrorLabel>
+                            )}
+                            <div className="form-group">
+                              <input
+                                onChange={handleChange}
+                                name="email"
+                                type="text"
+                                className="form-control"
+                                placeholder="Email"
+                                value={values.email}
+                              />
+                            </div>
+                            {errors.email && touched.email && (
+                              <ErrorLabel>{errors.email}</ErrorLabel>
+                            )}
+                            <div className="form-row form-group">
+                              <div className="col">
+                                <input type="password" className="form-control" id placeholder="Password" name="password" onChange={handleChange}
+                                  value={values.password} />
+                              </div>
+                            </div>
+                            {errors.password && touched.password && (
+                              <ErrorLabel>{errors.password}</ErrorLabel>
+                            )}
+
+                            <button className="btn btn-lg btn-warning text-white btn-block text-uppercase" type="submit">
+                              Login
                     </button>
 
-                    <div className="mt-4">
-                      <div className="float-right pr-2">
-                        <Link to="/SellerLogin" href>
-                          <i
-                            className="fa fa-arrow-circle-right"
-                            aria-hidden="true"
-                            style={{ fontSize: 30, color: '#ffa500' }}
-                          />
-                        </Link>
-                      </div>
-                      <p className="mb-0 pt-1">Want to Login as a SuperNebr Seller?</p>
-                    </div>
-                  </form>
+                            <div className="mt-4">
+                              <div className="float-right pr-2">
+                                <Link to="/SellerLogin" href>
+                                  <i
+                                    className="fa fa-arrow-circle-right"
+                                    aria-hidden="true"
+                                    style={{ fontSize: 30, color: '#ffa500' }}
+                                  />
+                                </Link>
+                              </div>
+                              <p className="mb-0 pt-1">Want to Login as a SuperNebr Seller?</p>
+                            </div>
+                          </form>
+                        </>)
+                    }}
+                  </Formik>
                 </div>
               </div>
             </div>
