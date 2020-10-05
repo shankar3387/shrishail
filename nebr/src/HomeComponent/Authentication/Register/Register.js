@@ -3,22 +3,25 @@ import { Link } from 'react-router-dom';
 import AuthSer from '../../Server/server';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { ErrorLabel } from '../../../components/common/ErrorText/styledComponents';
+import ErrorText from '../../../components/common/ErrorText';
 
 
 const validationSchema = yup.object().shape({
+  userName: yup.string()
+
+    .required("user name is required"),
   email: yup.string()
     .email()
     .required("Email is required"),
   password: yup.string()
     .required("Password is required")
     .min(6, " Password length is 6"),
-  passwordConfirmation: yup.string()
-    .oneOf([yup.ref('password'), null], 'Passwords must match'),
-  phone: yup.number()
-    .test('len', 'Must be exactly 10 digits', phoneNumber => phoneNumber.length === 10),
-  otp: yup.number()
-    .test('len', 'Invalid otp', otp => otp.length === 6),
+  confirmPassword: yup.string()
+    .oneOf([yup.ref('password'), null], 'Passwords must match').required("required"),
+  // phone: yup.string()
+  //   .test('len', 'Must be exactly 10 digits', phone => phone.length === 10),
+  // otp: yup.string()
+  //   .test('len', 'Invalid otp', otp => otp.length === 6),
 
 })
 
@@ -61,6 +64,7 @@ export default class Register extends Component {
 
   onSubmit = async (userData) => {
     const { email, password, confirmPassword, userName, phone, otp } = userData
+    console.log(userData, "userData")
 
     const { isExist, items } = this.state;
     console.log('this');
@@ -113,23 +117,26 @@ export default class Register extends Component {
                             <input
                               name="userName"
                               type="text"
-                              id
+
                               className="form-control"
                               onChange={handleChange}
                               value={values.userName}
                               placeholder="Your Name"
                               autoFocus
                             />
-                            {errors.name && touched.name && (
-                              <ErrorLabl title={errors.name} />
-                            )}
+                            {errors.userName
+                              && touched.userName
+                              && (
+                                <ErrorText title={errors.userName
+                                } />
+                              )}
                           </div>
 
                           <div className="form-group">
                             <input
                               name="email"
                               type="email"
-                              id
+
                               className="form-control"
                               onChange={handleChange}
                               placeholder="Email"
@@ -137,15 +144,17 @@ export default class Register extends Component {
 
                             />
                             {errors.email && touched.email && (
-                              <ErrorLabel title={errors.email} />
+                              <ErrorText title={errors.email} />
                             )}
+
                           </div>
+
 
                           <div className="form-group">
                             <input
                               name="password"
                               type="Password"
-                              id
+
                               className="form-control"
                               onChange={handleChange}
                               placeholder="Password"
@@ -153,7 +162,7 @@ export default class Register extends Component {
                               value={values.password}
                             />
                             {errors.password && touched.password && (
-                              <ErrorLabel title={errors.password} />
+                              <ErrorText title={errors.password} />
                             )}
                           </div>
 
@@ -162,41 +171,45 @@ export default class Register extends Component {
                               name="confirmPassword"
                               type="password"
                               className="form-control"
+                              onChange={handleChange}
                               placeholder="Confirm Password"
-                              values={values.confirmPassword} />
+                              value={values.confirmPassword} />
                             {errors.confirmPassword && touched.confirmPassword && (
-                              <ErrorLabel title={errors.confirmPassword} />
+                              <ErrorText title={errors.confirmPassword} />
                             )}
                           </div>
 
                           <div className="form-row form-group">
                             <div className="col">
                               <input
-                                values={values.phone}
+
                                 name="phone"
                                 type="text"
                                 className="form-control"
                                 onChange={handleChange}
                                 placeholder="Phone"
+                                value={values.phone}
                               />
                               {errors.phone && touched.phone && (
-                                <ErrorLabel title={errors.phone} />
+                                <ErrorText title={errors.phone} />
                               )}
                             </div>
                             <div className="col">
                               <div className="row">
                                 <div className="col-lg-9">
                                   <input
-                                    value={values.otp}
+
                                     name="otp"
                                     type="text"
                                     className="form-control"
                                     onChange={handleChange}
                                     placeholder="OTP"
+                                    value={values.otp}
                                   />
-                                  {errors.otp && touched.otp && (
-                                    <ErrorLabel title={errors.otp} />)}
+
                                 </div>
+                                {errors.otp && touched.otp && (
+                                  <ErrorText title={errors.otp} />)}
                                 <div className="col-lg-3 d-flex justify-content-center align-items-center">
                                   <i className="fa fa-refresh" aria-hidden="true" />
                                 </div>
