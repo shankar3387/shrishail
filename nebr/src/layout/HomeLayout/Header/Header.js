@@ -11,19 +11,16 @@ import PropTypes from 'prop-types';
 
 const HomeHeader = () => {
   const { store } = useStore();
-  const [state] = useState({
-    communityName: localStorage.getItem('communityValue'),
-  });
-  const { communityName } = state;
+  const [communityName, setCommunityName] = useState(localStorage.getItem('communityValue'));
   console.log(store);
 
 
   useEffect(() => {
+    console.log(store);
+
     console.log(communityName);
     // if (localStorage.getItem('communityValue') !== communityName) {
-    //   setState({
-    //     communityName: localStorage.getItem('communityValue'),
-    //   });
+      setCommunityName(localStorage.getItem('communityValue'));
     // }
     // updateCommunity();
     console.log('useEffect, fetchData here');

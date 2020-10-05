@@ -12,76 +12,44 @@ const validationSchema = yup.object().shape({
     .required("user name is required"),
   email: yup.string()
     .email()
-    .required("Email is required"),
+    .test({
+      name: 'duplicate-email-check',
+      params: 'value',
+      message: 'Duplicate email already exists',
+      test:async (value) => { // Notice this, adding curly braces will require you to put a return statement
+       return AuthSer.postEmailValidation({ email: value })
+            .then(result => {
+                console.log(result)
+                if (result.error) {
+                    return false
+                } else {
+                    return true
+                }
+            })
+            .catch(err => console.log(err))
+    }
+    }).required("Email is required"),
   password: yup.string()
     .required("Password is required")
     .min(6, " Password length is 6"),
   confirmPassword: yup.string()
     .oneOf([yup.ref('password'), null], 'Passwords must match').required("required"),
-  // phone: yup.string()
-  //   .test('len', 'Must be exactly 10 digits', phone => phone.length === 10),
+  phone: yup.string()
+    .required("phone number is required")
+    .min(10, "Must be exactly 10 digits")
+    .max(10, "to long"),
   // otp: yup.string()
   //   .test('len', 'Invalid otp', otp => otp.length === 6),
 
 })
 
 export default class Register extends Component {
-  // constructor(props) {
-  //   super(props);
-
-  //   this.state = {
-  //     items: {
-  //       user_name: '',
-  //       email: '',
-  //       phone: '',
-  //       password: '',
-  //       otp: ''
-  //     },
-  //     errorMessage: '',
-  //     isExist: true,
-  //   };
-  // }
-
-  updateChanges = async e => {
-    const { name, value } = e.target;
-    // const { items ,setState} = this.state;
-    if (name === 'email') {
-      const res = await AuthSer.postEmailValidation({ email: value });
-      this.setState({
-        isExist: res.error,
-        errorMessage: res.message,
-      });
-    } else if (name === 'phone') {
-      console.log(value.length >= 10)
-      // AuthSer.getOtp({phone:val,message:'Otp'}).then(result=>{
-      //   console.log(result)
-      // })
-    }
-    console.log(name)
-    // this.setState(items=> { name, value });
-    // this.setState( items: { user_name: value } });
-  };
-
   onSubmit = async (userData) => {
     const { email, password, confirmPassword, userName, phone, otp } = userData
     console.log(userData, "userData")
-
-    const { isExist, items } = this.state;
-    console.log('this');
-    console.log(isExist);
-    // if (!isExist) {
-    //   const res = await AuthSer.postRegistration(items);
-    //   if (res.error) {
-    //     this.setState({
-    //       errorMessage: res.message,
-    //     });
-    //   }
-    // }
-
-    console.log(items);
-    // let result = await AuthSer.getRegistration()
-    // console.log('result', result)
-    // console.log('object', this.state)
+    AuthSer.postRegistration(userData).then(result=>{
+      console.log(result)
+    })
   };
 
   render() {
@@ -241,9 +209,9 @@ export default class Register extends Component {
                 </div>
               </div>
             </div>
-          </div >
-        </div >
-      </div >
+          </div>
+        </div>
+      </div>
     );
   }
 }

@@ -58,7 +58,7 @@ export default class CommunityModal extends Component {
   childHandler = val => {
       console.log(this.props)
     console.log(this.state);
-    this.setState({ communityValue: val.label });
+    // this.setState({ communityValue: val.label });
     localStorage.setItem('communityValue', val.label);
     console.log(`Selected: ${val.value}`);
     console.log(localStorage.getItem('communityValue'))

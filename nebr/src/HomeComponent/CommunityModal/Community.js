@@ -15,14 +15,15 @@ export class Community extends Component {
 
   handleChange = (selectedOption) => {
     const { logChange } = this.props;
-    logChange(selectedOption.value)
+    console.log(selectedOption)
+    localStorage.setItem('communityValue',selectedOption.label)
+    window.location.reload(false);
+    logChange(selectedOption)
 
   }
 
 
   render() {
-    const { logChange, selectedValue = "", name } = this.props;
-    console.log(logChange, selectedValue, name, "community")
     return (
       <div>
         <div>

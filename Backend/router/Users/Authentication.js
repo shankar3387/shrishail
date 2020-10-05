@@ -31,7 +31,6 @@ router.post('/emailValidation', async(req,res)=>{
     console.log(isEmailExists)
     return res.status(200).send({
         error: isEmailExists ? true : false,
-        message: isEmailExists ? 'email is exists': '',
     })
 })
 router.put(`/api/product/:id`, async(req, res) => {
