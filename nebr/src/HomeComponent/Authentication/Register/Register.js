@@ -137,7 +137,7 @@ export default class Register extends Component {
 
                             />
                             {errors.email && touched.email && (
-                              <ErrorLabel title={errors.email}/>
+                              <ErrorLabel title={errors.email} />
                             )}
                           </div>
 
@@ -149,11 +149,11 @@ export default class Register extends Component {
                               className="form-control"
                               onChange={handleChange}
                               placeholder="Password"
-                              required
+
                               value={values.password}
                             />
                             {errors.password && touched.password && (
-                              <ErrorLabel title={error.email}/>
+                              <ErrorLabel title={errors.password} />
                             )}
                           </div>
 
@@ -165,7 +165,7 @@ export default class Register extends Component {
                               placeholder="Confirm Password"
                               values={values.confirmPassword} />
                             {errors.confirmPassword && touched.confirmPassword && (
-                              <ErrorLabel title={error.email}.confirmPassword}</ErrorLabel>
+                              <ErrorLabel title={errors.confirmPassword} />
                             )}
                           </div>
 
@@ -180,7 +180,7 @@ export default class Register extends Component {
                                 placeholder="Phone"
                               />
                               {errors.phone && touched.phone && (
-                                <ErrorLabel title={error.email}.phone}</ErrorLabel>
+                                <ErrorLabel title={errors.phone} />
                               )}
                             </div>
                             <div className="col">
@@ -195,40 +195,39 @@ export default class Register extends Component {
                                     placeholder="OTP"
                                   />
                                   {errors.otp && touched.otp && (
-                                    <ErrorLabel title={error.email}.otp}</ErrorLabel>
-                                  )}
+                                    <ErrorLabel title={errors.otp} />)}
                                 </div>
                                 <div className="col-lg-3 d-flex justify-content-center align-items-center">
                                   <i className="fa fa-refresh" aria-hidden="true" />
                                 </div>
                               </div>
                             </div>
-                </div>
-                <button
-                  onClick={handleSubmit}
-                  className="btn btn-lg btn-warning text-white btn-block text-uppercase"
-                  type="submit"
-                >
-                  Continue
+                          </div>
+                          <button
+                            onClick={handleSubmit}
+                            className="btn btn-lg btn-warning text-white btn-block text-uppercase"
+                            type="submit"
+                          >
+                            Continue
                     </button>
-                <div className="mt-4">
-                  <div className="float-right pr-2">
-                    <Link>
-                      <i
-                        className="fa fa-arrow-circle-right"
-                        aria-hidden="true"
-                        style={{ fontSize: 30, color: '#ffa500' }}
-                      />
-                    </Link>
-                  </div>
-                  <p className="mb-0 pt-1">Want to Login as a SuperNebr Seller?</p>
-                </div>
+                          <div className="mt-4">
+                            <div className="float-right pr-2">
+                              <Link>
+                                <i
+                                  className="fa fa-arrow-circle-right"
+                                  aria-hidden="true"
+                                  style={{ fontSize: 30, color: '#ffa500' }}
+                                />
+                              </Link>
+                            </div>
+                            <p className="mb-0 pt-1">Want to Login as a SuperNebr Seller?</p>
+                          </div>
                         </form>)
                     }}
                   </Formik>
-          </div>
-        </div>
-      </div>
+                </div>
+              </div>
+            </div>
           </div >
         </div >
       </div >
