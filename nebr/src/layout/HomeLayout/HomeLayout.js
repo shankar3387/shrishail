@@ -1,6 +1,14 @@
 import React, { lazy } from 'react';
 import { Switch, useRouteMatch } from 'react-router-dom';
 import { Route } from 'react-router-dom/cjs/react-router-dom.min';
+import AboutUs from '../../HomeComponent/FooterComponent/AboutUs/AboutUs';
+import Blogs from '../../HomeComponent/FooterComponent/blogs/blogs';
+import Careers from '../../HomeComponent/FooterComponent/Careers/Careers';
+import TermsCondition from '../../HomeComponent/FooterComponent/TermsCondition/TermsCondition';
+import PrivacyPolicy from '../../HomeComponent/FooterComponent/PrivacyPolicy/PrivacyPolicy';
+import LicenseAgreement from '../../HomeComponent/FooterComponent/LicenseAgreement/LicenseAgreement';
+import Investors from '../../HomeComponent/FooterComponent/Investors/Investors';
+const  FooterComponentRoute = lazy(()=>import('../../HomeComponent/FooterComponent/FooterComponentRouter')) ;
 
 const SellerLogin = lazy(() => import('../../SellerComponent/Authentication/SellerLogin'));
 const Home = lazy(() => import('../../HomeComponent/Home/Home'));
@@ -31,6 +39,13 @@ const HomeLayout = () => {
         <Route restricted={false} path="/createPolls" component={CreatePolls} />
         <Route restricted={false} path="/seller_account" component={SellerRegistration} />
         <Route path="/sellerLogin" component={SellerLogin} />
+        <Route path="/aboutus" component={AboutUs} />
+        <Route path="/blogs" component={Blogs} />
+        <Route path="/careers" component={Careers} />
+        <Route path="/investors" component={Investors} />
+        <Route path="/termsCondition" component={TermsCondition} />
+        <Route path="/privacyPolicy" component={PrivacyPolicy} />
+        <Route path="/licenseAgreement" component={LicenseAgreement} />
       </Switch>
     </div>
   );

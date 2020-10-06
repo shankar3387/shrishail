@@ -5,8 +5,11 @@ const express = require("express");
 const router = express.Router();
 
 router.get(`/userregistration`, async(req, res) => {
-    let userRegistration = await Product.find();
-    return res.status(200).send(products);
+    let conditions = {
+        login_type: { $ne: 'admin' }
+    }
+    let user = await userRegistration.find(conditions)
+    return res.status(200).send(user);
 });
 
 router.post(`/userregistration`, async(req, res) => {

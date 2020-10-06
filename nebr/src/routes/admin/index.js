@@ -2,6 +2,8 @@ import React, { lazy, Suspense } from 'react';
 import { Spin } from 'antd';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import withAdminLayout from '../../layout/AdminLayout/withAdminLayout';
+import SellerRouterAdmin from '../Admin/SellerRouterAdmin';
+import UsersRouterAdmin from '../Admin/UsersRouterAdmin';
 
 const Dashboard = lazy(() => import('./dashboard'));
 const Ecommerce = lazy(() => import('./ecommerce'));
@@ -32,7 +34,9 @@ const Admin = () => {
         }
       >
         <Route path={path} component={Dashboard} />
-        <Route path={`${path}/ecommerce`} component={Ecommerce} />
+        <Route path={`${path}/sellers`} component={SellerRouterAdmin} />
+        <Route path={`${path}/Users`} component={UsersRouterAdmin} />
+        {/* <Route path={`${path}/ecommerce`} component={Ecommerce} />
         <Route path={`${path}/charts`} component={Charts} />
         <Route path={`${path}/pages`} component={Pages} />
         <Route path={`${path}/components`} component={Components} />
@@ -47,7 +51,7 @@ const Admin = () => {
         <Route path={`${path}/email/:page`} component={Inbox} />
         <Route path={`${path}/firestore`} component={Firebase} />
         <Route path={`${path}/main/chat`} component={Chat} />
-        <Route path={`${path}/profile/settings`} component={Settings} />
+        <Route path={`${path}/profile/settings`} component={Settings} /> */}
       </Suspense>
     </Switch>
   );
