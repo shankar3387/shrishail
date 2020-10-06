@@ -86,12 +86,10 @@ router.post('/sellerLogin', async(req, res) => {
 
 })
 router.post('/selleremailValidation', async(req, res) => {
-    console.log(req.body, 'node')
     let isEmailExists = await sellerRegistration.find(req.body);
-    console.log(isEmailExists)
+    console.log(isEmailExists.length)
     return res.status(200).send({
-        error: isEmailExists ? true : false,
-        message: isEmailExists ? 'email is exists': '',
+        error: isEmailExists.length ? true : false,
     })
 
 

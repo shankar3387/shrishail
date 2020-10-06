@@ -24,6 +24,7 @@
     "mongodb": "^3.6.2",
     "mongoose": "^5.10.7",
     "nodemon": "^2.0.4",
+    "react-toastify": "^6.0.9",
     "styled-components": "^5.2.0",
     "yup": "^0.29.3"
   },

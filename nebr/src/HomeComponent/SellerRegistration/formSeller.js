@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Form, Input, Tooltip, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-
+import { ToastContainer, toast } from 'react-toastify';
+import AuthSer from '../Server/server'
 const { Option } = Select;
 const AutoCompleteOption = AutoComplete.Option;
 const formItemLayout = {
@@ -40,7 +41,7 @@ const FormSeller = (props) => {
 
   const onFinish = values => {
     console.log('Received values of form: ', values);
-
+    toast.success('successfully added')
     this.props.onFinish(values)
   };
 
@@ -88,7 +89,6 @@ const FormSeller = (props) => {
       <Form.Item
         name="email"
         label="E-mail"
-        large
         rules={[
           {
             type: 'email',
@@ -97,7 +97,20 @@ const FormSeller = (props) => {
           {
             required: true,
             message: 'Please input your E-mail!',
-          },
+          },({ getFieldValue }) => ({
+            validator(rule, value) {
+              return AuthSer.postSellerEmailValidation({email:value}).then(result=>{
+                console.log(result)
+                if(result.error){
+                  return Promise.reject('exists');
+                }
+                return Promise.resolve();
+
+              });
+
+              // return Promise.reject('The two passwords that you entered do not match!');
+            },
+          })
         ]}
       >
         <Input />

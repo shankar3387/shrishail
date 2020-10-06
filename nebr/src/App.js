@@ -15,7 +15,7 @@ import UserRouter from './routes/UserRouter';
 import Auth from './routes/auth';
 import 'bootstrap/dist/css/bootstrap.css';
 import './static/css/style.css';
-
+import { ToastContainer, toast } from 'react-toastify';
 import config from './config/config';
 import ProtectedAdminRoute from './components/utilities/protectedRoute';
 import HomeLayout from './layout/HomeLayout/HomeLayout';
@@ -50,6 +50,7 @@ const ProviderConfig = () => {
     <ConfigProvider direction={rtl ? 'rtl' : 'ltr'}>
       <ThemeProvider theme={{ ...theme, rtl }}>
         <ReactReduxFirebaseProvider {...rrfProps}>
+        <ToastContainer />
           <Router basename={process.env.PUBLIC_URL}>
             <div>
               <Switch>

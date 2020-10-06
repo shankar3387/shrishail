@@ -4,7 +4,8 @@ import AuthSer from '../../Server/server';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import ErrorText from '../../../components/common/ErrorText';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const validationSchema = yup.object().shape({
   user_name: yup.string()
@@ -46,14 +47,20 @@ export default class Register extends Component {
     const { email, password, confirmPassword, userName, phone, otp } = userData
     console.log(userData, "userData")
     AuthSer.postRegistration(userData).then(result=>{
-      console.log(result)
+      console.log(result.data)
+      toast.success('successfully registration')
+
     })
   };
-
+ totest = () => {
+  alert('test')
+  toast.success('test')
+}
   render() {
     // const { errorMessage } = this.state;
     return (
       <div className="app-container" style={{ backgroundColor: '#cedaf3' }}>
+      {/* <ToastContainer /> */}
         <div className="reg_form">
           <div className="row mt-5">
             <div className="col-sm-9 col-md-7 col-lg-10 mx-auto">
@@ -188,7 +195,8 @@ export default class Register extends Component {
                             type="submit"
                           >
                             Continue
-                    </button>
+                       </button>
+                       <button type='button' onClick={this.totest} >Test</button>
                           <div className="mt-4">
                             <div className="float-right pr-2">
                               <Link>
