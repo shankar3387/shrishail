@@ -6,59 +6,60 @@ import * as yup from 'yup';
 import ErrorText from '../../../components/common/ErrorText';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+const generateUniqueId = require('generate-unique-id');
 
-// const validationSchema = yup.object().shape({
-//   user_name: yup.string()
+const validationSchema = yup.object().shape({
+  user_name: yup.string()
 
-//     .required("user name is required"),
-//   email: yup.string()
-//     .email()
-//     .required("Email is required")
-//     .test('duplicate-email-check', 'Duplicate email already exists',
-//       async (value) => { // Notice this, adding curly braces will require you to put a return statement
-//         return AuthSer.postEmailValidation({ email: value })
-//           .then(result => {
-//             console.log(result.error)
-//             if (result.error) {
-//               return false
-//             } else {
-//               return true
-//             }
-//           })
-//           .catch(err => console.log(err))
-//       }
-//     ),
-//   password: yup.string()
-//     .required("Password is required")
-//     .min(6, " Password length is 6"),
-//   confirmPassword: yup.string()
-//     .oneOf([yup.ref('password'), null], 'Passwords must match').required("required"),
-//   phone: yup.string()
-//     .required("phone number is required")
-//     .test('phone', 'phone number must 10', async (value) => {
-//       console.log(value)
-//     }),
-//   otp: yup.string()
-//     .required("otp required")
-//     .test('otp', "invalid otp",
-//       function (otpValue) {
-//         return new Promise(() => {
-//           fetch("/url").then((otpFromApi) => {
-
-//             if (otpFromApi === otpValue)
-//               return true
-//             else
-//               return false
-//           }).catch((error) => {
-//             console.log(error, "error in otp fetching from api")
-//             return false
-
-//           })
-//         })
-
-
-//       })
-// })
+    .required("user name is required"),
+  email: yup.string()
+    .email()
+    .required("Email is required")
+    .test({
+      name:'duplicate-email-check', 
+      message:'Duplicate email already exists',
+      test: async (value) => { // Notice this, adding curly braces will require you to put a return statement
+        return AuthSer.postEmailValidation({ email: value })
+          .then(result => {
+            console.log(result.data)
+            if (result.data.error) {
+              return false
+            } else {
+              return true
+            }
+          })
+          .catch(err => console.log(err))
+      }
+    }
+    ),
+  password: yup.string()
+    .required("Password is required")
+    .min(6, " Password length is 6"),
+  confirmPassword: yup.string()
+    .oneOf([yup.ref('password'), null], 'Passwords must match').required("required"),
+  phone: yup.string()
+    .required("phone number is required")
+    .test('phone', 'phone number must 10',(value)=>{
+      // console.log(error)
+      if(value && value.length === 10){
+        
+        console.log(value)
+        var reference_number = generateUniqueId({
+          length: 6,
+          useLetters: false
+      })
+        AuthSer.getOtp({phone:value,message:`otp number: ${reference_number}`}).then(result=>this.setState({otp:reference_number}))
+        return true
+      }else {
+        return false
+      }
+      // return true
+     
+    }),
+  otp: yup.string()
+    .required("otp required")
+    // .test('otp', "invalid otp")
+})
 
 
 
@@ -68,11 +69,11 @@ export default class Register extends Component {
     const { email, password, confirmPassword, userName, phone, otp } = userData
     console.log(userData, "userData")
     console.log(this.props)
-    // this.props.handleReset()
+    this.props.handleReset()
     AuthSer.postRegistration(userData).then(result => {
-      console.log(result.data, "result.data")
+      console.log(result.data)
       toast.success('successfully registration')
-      // this.props.handleReset()
+      this.props.handleReset()
 
     })
   };
@@ -82,7 +83,6 @@ export default class Register extends Component {
   }
   render() {
     // const { errorMessage } = this.state;
-    const initialValues = { email: "", password: "", confirmPassword: "", user_name: "", phone: "", otp: "" }
     return (
       <div className="app-container" style={{ backgroundColor: '#cedaf3' }}>
         {/* <ToastContainer /> */}
@@ -93,14 +93,12 @@ export default class Register extends Component {
                 <div className="card-body">
                   <h5 className="card-title text-center">Community Signup</h5>
                   <Formik
-                    initialValues={initialValues}
-                    onSubmit={(userData, { resetForm }) => {
-                      resetForm(initialValues)
+                    initialValues={{ email: "", password: "", confirmPassword: "", user_name: "", phone: "", otp: "" }}
+                    onSubmit={(userData) => {
                       this.onSubmit(userData)
 
                     }}
-                  // validationSchema={validationSchema}
-                  >
+                    validationSchema={validationSchema}>
                     {props => {
                       const {
                         values,
@@ -138,7 +136,6 @@ export default class Register extends Component {
                             <input
                               name="email"
                               type="email"
-
                               className="form-control"
                               onChange={handleChange}
                               onBlur={handleBlur}

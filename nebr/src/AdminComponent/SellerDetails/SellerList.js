@@ -9,13 +9,13 @@ import { Button } from '../../components/buttons/buttons';
 import { Cards } from '../../components/cards/frame/cards-frame';
 import { PageHeader } from '../../components/page-headers/page-headers';
 import { fbDataDelete, fbDataRead, fbDataSearch } from '../../redux/firestore/actionCreator';
+import AdminService from '../AdminService/AdminService';
 
 const SellerList = () => {
   const dispatch = useDispatch();
-  const crud = useSelector(state => state.crud.data)
+ 
   const isLoading = useSelector(state => state.crud.loading)
-
-
+  const [sellerData, setSellerData] = useState([]);
   // const { crud, isLoading } = useSelector(state => {
   //   console.log(state, "state1234")
   //   return {
@@ -23,17 +23,17 @@ const SellerList = () => {
   //     isLoading: state.crud.loading,
   //   };
   // });
-  console.log(crud, "crud123")
   const [state, setState] = useState({
     selectedRowKeys: [],
   });
   const { selectedRowKeys } = state;
 
   useEffect(() => {
-    if (fbDataRead) {
-      dispatch(fbDataRead());
-    }
-  }, [dispatch]);
+    AdminService.getSellers().then(results=>{
+        console.log(results.data)
+        setSellerData(results.data)
+    })
+  }, [setSellerData]);
   const dataSource = [];
 
   const handleDelete = id => {
@@ -45,43 +45,43 @@ const SellerList = () => {
   };
 
   const onHandleSearch = e => {
-    dispatch(fbDataSearch(e.target.value, crud));
+    dispatch(fbDataSearch(e.target.value,sellerData));
   };
 
-  if (crud.length)
-    crud.map((person, key) => {
-      const { id, name, email, company, position, join, status, city, country, url } = person;
-      return dataSource.push({
-        key: key + 1,
-        name: (
-          <div className="record-img align-center-v">
-            {/* <img src={url !== null ? url : require('../../../static/img/avatar/profileImage.png')} alt={id} /> */}
-            <span>
-              <span>{name}</span>
-              <span className="record-location">
-                {city},{country}
-              </span>
-            </span>
-          </div>
-        ),
-        email,
-        company,
-        position,
-        jdate: join,
-        status: <span className={`status ${status}`}>{status}</span>,
-        action: (
-          <div className="table-actions">
-            <Link className="edit" to={`/admin/firestore/edit/${id}`}>
-              <FeatherIcon icon="edit" size={14} />
-            </Link>
-            &nbsp;&nbsp;&nbsp;
-            <Link className="delete" onClick={() => handleDelete(id)} to="#">
-              <FeatherIcon icon="trash-2" size={14} />
-            </Link>
-          </div>
-        ),
-      });
-    });
+//   if (crud.length)
+//     crud.map((person, key) => {
+//       const { id, name, email, company, position, join, status, city, country, url } = person;
+//       return dataSource.push({
+//         key: key + 1,
+//         name: (
+//           <div className="record-img align-center-v">
+//             {/* <img src={url !== null ? url : require('../../../static/img/avatar/profileImage.png')} alt={id} /> */}
+//             <span>
+//               <span>{name}</span>
+//               <span className="record-location">
+//                 {city},{country}
+//               </span>
+//             </span>
+//           </div>
+//         ),
+//         email,
+//         company,
+//         position,
+//         jdate: join,
+//         status: <span className={`status ${status}`}>{status}</span>,
+//         action: (
+//           <div className="table-actions">
+//             <Link className="edit" to={`/admin/firestore/edit/${id}`}>
+//               <FeatherIcon icon="edit" size={14} />
+//             </Link>
+//             &nbsp;&nbsp;&nbsp;
+//             <Link className="delete" onClick={() => handleDelete(id)} to="#">
+//               <FeatherIcon icon="trash-2" size={14} />
+//             </Link>
+//           </div>
+//         ),
+//       });
+//     });
 
   const columns = [
     {
@@ -167,7 +167,7 @@ const SellerList = () => {
                       <Table
                         rowSelection={rowSelection}
                         pagination={{ pageSize: 10, showSizeChanger: true }}
-                        dataSource={crud}
+                        dataSource={sellerData}
                         columns={columns}
                       />
                     </TableWrapper>

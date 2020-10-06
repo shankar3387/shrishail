@@ -6621,6 +6621,11 @@ gcp-metadata@^4.1.0:
     gaxios "^3.0.0"
     json-bigint "^1.0.0"
 
+generate-unique-id@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/generate-unique-id/-/generate-unique-id-2.0.0.tgz#78dc0153165dcb7217fdd45a2648ad5ce0dc2d03"
+  integrity sha512-6LK0u5vZ1N4UvmvkceyR1Piq7FfDKwLqieFNbPsdGxQ8d6BIoZHgpveFjAEgXBgrhK8IYKke5JlV8f7WzOjxug==
+
 gensync@^1.0.0-beta.1:
   version "1.0.0-beta.1"
   resolved "https://registry.yarnpkg.com/gensync/-/gensync-1.0.0-beta.1.tgz#58f4361ff987e5ff6e1e7a210827aa371eaac269"

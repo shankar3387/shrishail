@@ -50,45 +50,45 @@ const ViewUsers = () => {
     dispatch(fbDataSearch(e.target.value, crud));
   };
 
-  if (crud.length)
-    crud.map((person, key) => {
-      const { id, name, email, company, position, join, status, city, country, url } = person;
-      return dataSource.push({
-        key: key + 1,
-        name: (
-          <div className="record-img align-center-v">
-            {/* <img src={url !== null ? url : require('../../../static/img/avatar/profileImage.png')} alt={id} /> */}
-            <span>
-              <span>{name}</span>
-              <span className="record-location">
-                {city},{country}
-              </span>
-            </span>
-          </div>
-        ),
-        email,
-        company,
-        position,
-        jdate: join,
-        status: <span className={`status ${status}`}>{status}</span>,
-        action: (
-          <div className="table-actions">
-            <Link className="edit" to={`/admin/firestore/edit/${id}`}>
-              <FeatherIcon icon="edit" size={14} />
-            </Link>
-            &nbsp;&nbsp;&nbsp;
-            <Link className="delete" onClick={() => handleDelete(id)} to="#">
-              <FeatherIcon icon="trash-2" size={14} />
-            </Link>
-          </div>
-        ),
-      });
-    });
+  // if (crud.length)
+  //   crud.map((person, key) => {
+  //     const { id, name, email, company, position, join, status, city, country, url } = person;
+  //     return dataSource.push({
+  //       key: key + 1,
+  //       name: (
+  //         <div className="record-img align-center-v">
+  //           {/* <img src={url !== null ? url : require('../../../static/img/avatar/profileImage.png')} alt={id} /> */}
+  //           <span>
+  //             <span>{name}</span>
+  //             <span className="record-location">
+  //               {city},{country}
+  //             </span>
+  //           </span>
+  //         </div>
+  //       ),
+  //       email,
+  //       company,
+  //       position,
+  //       jdate: join,
+  //       status: <span className={`status ${status}`}>{status}</span>,
+  //       action: (
+  //         <div className="table-actions">
+  //           <Link className="edit" to={`/admin/firestore/edit/${id}`}>
+  //             <FeatherIcon icon="edit" size={14} />
+  //           </Link>
+  //           &nbsp;&nbsp;&nbsp;
+  //           <Link className="delete" onClick={() => handleDelete(id)} to="#">
+  //             <FeatherIcon icon="trash-2" size={14} />
+  //           </Link>
+  //         </div>
+  //       ),
+  //     });
+  //   });
 
   const columns = [
     {
       title: 'Name',
-      dataIndex: 'name',
+      dataIndex: 'user_name',
       key: 'name',
     },
     {
@@ -97,31 +97,24 @@ const ViewUsers = () => {
       key: 'email',
     },
     {
-      title: 'Company',
-      dataIndex: 'company',
+      title: 'Phone',
+      dataIndex: 'phone',
       key: 'company',
-    },
-    {
-      title: 'Position',
-      dataIndex: 'position',
-      key: 'position',
-    },
-    {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
+      
     },
     {
       title: 'Joining Date',
-      dataIndex: 'jdate',
+      dataIndex: 'date',
       key: 'jdate',
-    },
-    {
-      title: 'Actions',
-      dataIndex: 'action',
-      key: 'action',
       width: '90px',
+
     },
+    // {
+    //   title: 'Actions',
+    //   dataIndex: 'action',
+    //   key: 'action',
+    //   width: '90px',
+    // },
   ];
   const onSelectChange = selectedRowKey => {
     setState({ ...state, selectedRowKeys: selectedRowKey });

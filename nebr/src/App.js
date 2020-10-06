@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-d
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import { ConfigProvider } from 'antd';
 import store, { rrfProps } from './redux/store';
-import Admin from './routes/admin';
+import Admin from './routes/Admin';
 import SellerAdmin from './routes/SellerRouter';
 import UserRouter from './routes/UserRouter';
 import Auth from './routes/auth';

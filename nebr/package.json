@@ -20,6 +20,7 @@
     "firebase": "^7.14.2",
     "font-awesome": "^4.7.0",
     "formik": "^2.1.7",
+    "generate-unique-id": "^2.0.0",
     "google-maps-react": "^2.0.2",
     "leaflet": "^1.6.0",
     "leaflet.markercluster": "^1.4.1",
@@ -54,7 +55,7 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "set \"GENERATE_SOURCEMAP=false\" && react-app-rewired --max_old_space_size=8096 build",
+    "build": "set \"GENERATE_SOURCEMAP=false\" && react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
     "lint": "eslint '**/*.js'",
