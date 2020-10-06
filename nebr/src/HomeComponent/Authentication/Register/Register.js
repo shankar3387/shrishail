@@ -35,10 +35,11 @@ const validationSchema = yup.object().shape({
     .oneOf([yup.ref('password'), null], 'Passwords must match').required("required"),
   phone: yup.string()
     .required("phone number is required")
-    .min(10, "Must be exactly 10 digits")
-    .max(10, "to long"),
-  // otp: yup.string()
-  //   .test('len', 'Invalid otp', otp => otp.length === 6),
+    .test('phone','phone number must 10', async(value)=>{
+      console.log(value)
+    }),
+  otp: yup.string()
+      .required("otp required")
 
 })
 
@@ -46,9 +47,12 @@ export default class Register extends Component {
   onSubmit = async (userData) => {
     const { email, password, confirmPassword, userName, phone, otp } = userData
     console.log(userData, "userData")
+    console.log(this.props)
+    this.props.handleReset()
     AuthSer.postRegistration(userData).then(result=>{
       console.log(result.data)
       toast.success('successfully registration')
+      this.props.handleReset()
 
     })
   };
@@ -79,6 +83,8 @@ export default class Register extends Component {
                         values,
                         touched,
                         errors,
+                        handleBlur,
+                        handleReset,
                         handleChange,
                         handleSubmit,
 
@@ -112,6 +118,7 @@ export default class Register extends Component {
 
                               className="form-control"
                               onChange={handleChange}
+                              onBlur={handleBlur}
                               placeholder="Email"
                               value={values.email}
 
@@ -181,12 +188,12 @@ export default class Register extends Component {
                                   />
 
                                 </div>
-                                {errors.otp && touched.otp && (
-                                  <ErrorText title={errors.otp} />)}
                                 <div className="col-lg-3 d-flex justify-content-center align-items-center">
                                   <i className="fa fa-refresh" aria-hidden="true" />
                                 </div>
                               </div>
+                              {errors.otp && touched.otp && (
+                                  <ErrorText title={errors.otp} />)}
                             </div>
                           </div>
                           <button
@@ -196,7 +203,7 @@ export default class Register extends Component {
                           >
                             Continue
                        </button>
-                       <button type='button' onClick={this.totest} >Test</button>
+                       {/* <button type='button' onClick={this.totest} >Test</button> */}
                           <div className="mt-4">
                             <div className="float-right pr-2">
                               <Link>

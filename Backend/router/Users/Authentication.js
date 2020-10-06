@@ -25,6 +25,22 @@ router.post(`/userregistration`, async(req, res) => {
     })
 
 })
+router.post(`/sellerRegistration`, async(req, res) => {
+    let isEmailExists = await sellerRegistration.findOne({ email: req.body.email });
+    if (isEmailExists) {
+        return res.status(200).send({
+            error: true,
+            message: 'email is exists',
+        })
+    }
+    let registration = await sellerRegistration.create(req.body);
+    return res.status(200).send({
+        error: false,
+        message: 'success',
+        registration
+    })
+
+})
 router.post('/emailValidation', async(req,res)=>{
     let isEmailExists = await userRegistration.findOne({ email: req.body.email });
     return res.status(200).send({

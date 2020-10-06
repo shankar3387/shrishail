@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Tooltip, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+import { Form, Input, Tooltip,Radio, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { ToastContainer, toast } from 'react-toastify';
 import AuthSer from '../Server/server'
@@ -41,8 +41,12 @@ const FormSeller = (props) => {
 
   const onFinish = values => {
     console.log('Received values of form: ', values);
-    toast.success('successfully added')
-    this.props.onFinish(values)
+    AuthSer.postSellerRegistration(values).then(results=>{
+      console.log(results.data)
+      toast.success('successfully added')
+    })
+   
+    // this.props.onFinish(values)
   };
 
   const prefixSelector = (
@@ -115,7 +119,18 @@ const FormSeller = (props) => {
       >
         <Input />
       </Form.Item>
-
+      <Form.Item
+        name="city"
+        label="City"
+        rules={[
+          {
+            required: true,
+            message: 'City name required!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
       <Form.Item
         name="password"
         label="Password"
@@ -170,6 +185,13 @@ const FormSeller = (props) => {
           }}
         />
       </Form.Item>
+      <Form.Item>
+      <Radio.Group>
+        <Radio value={true}>Taxable</Radio> <br />
+        <Radio value={false}>Non Taxable</Radio>
+    </Radio.Group>
+
+    </Form.Item>
       <Form.Item {...tailFormItemLayout}>
         <Button type="primary" htmlType="submit">
           Register

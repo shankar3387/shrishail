@@ -4,6 +4,7 @@ import { DataService } from '../../../src/config/dataService/dataService'
 require('dotenv').config()
 export default {
     postRegistration: async (data) => {
+      return DataService.post('/Auth/userregistration',data)
       return await axios.post(`/Auth/userregistration`,data);
     },
 
@@ -12,15 +13,18 @@ export default {
       },
 
     postUserLogin: async (data) =>{
-        return await axios.post(`/Auth/userLogin`,data);
+        return DataService.post('/Auth/userLogin',data)
     },
     postEmailValidation: async (data)=>{
-      let res = await axios.post(`/Auth/emailValidation`,data);
-        return res.data || [];
+      return DataService.post('/Auth/emailValidation',data)
     },
     postSellerLogin: async (data) =>{
       let res = await axios.post(`/Auth/sellerLogin`,data);
       return res.data || [];
+    },
+    postSellerRegistration: async (data) =>{
+      return await axios.post(`/Auth/sellerRegistration`,data);
+      // return res.data || [];
   },
   postSellerEmailValidation: async (data)=>{
     let res = await axios.post(`/Auth/selleremailValidation`,data);
@@ -32,12 +36,14 @@ export default {
      const ApiUserPassword = 'SMS@Pass1';
      const ApiUserSenderId = 'TestID';
      const ApiUrl= 'http://login.bulksmsgateway.in';
+     const type=3;
       const Newapi = {
         user:ApiUserName,
         password:ApiUserPassword,
         sender:ApiUserSenderId,
         mobile:apidata.phone,
-        message:apidata.message
+        message:apidata.message,
+        type:3
       }
       console.log(process.env)
       // querystring.stringify(Newapi)
