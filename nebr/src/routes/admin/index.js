@@ -2,8 +2,8 @@ import React, { lazy, Suspense } from 'react';
 import { Spin } from 'antd';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import withAdminLayout from '../../layout/AdminLayout/withAdminLayout';
-import SellerRouterAdmin from '../Admin/SellerRouterAdmin';
-import UsersRouterAdmin from '../Admin/UsersRouterAdmin';
+import SellerRouterAdmin from '../admin/SellerRouterAdmin';
+import UsersRouterAdmin from '../admin/UsersRouterAdmin';
 
 const Dashboard = lazy(() => import('./dashboard'));
 const Ecommerce = lazy(() => import('./ecommerce'));

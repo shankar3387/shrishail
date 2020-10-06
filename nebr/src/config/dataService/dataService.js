@@ -31,6 +31,7 @@ class DataService {
       data,
       headers: { ...authHeader(), ...optionalHeader },
     });
+
   }
 
   static patch(path = '', data = {}) {

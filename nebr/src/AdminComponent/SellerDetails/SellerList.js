@@ -12,13 +12,18 @@ import { fbDataDelete, fbDataRead, fbDataSearch } from '../../redux/firestore/ac
 
 const SellerList = () => {
   const dispatch = useDispatch();
-  const { crud, isLoading } = useSelector(state => {
-    return {
-      crud: state.crud.data,
-      isLoading: state.crud.loading,
-    };
-  });
+  const crud = useSelector(state => state.crud.data)
+  const isLoading = useSelector(state => state.crud.loading)
 
+
+  // const { crud, isLoading } = useSelector(state => {
+  //   console.log(state, "state1234")
+  //   return {
+  //     crud: state.crud.data,
+  //     isLoading: state.crud.loading,
+  //   };
+  // });
+  console.log(crud, "crud123")
   const [state, setState] = useState({
     selectedRowKeys: [],
   });
@@ -157,17 +162,17 @@ const SellerList = () => {
                   <Spin />
                 </div>
               ) : (
-                <div>
-                  <TableWrapper className="table-data-view table-responsive">
-                    <Table
-                      rowSelection={rowSelection}
-                      pagination={{ pageSize: 10, showSizeChanger: true }}
-                      dataSource={dataSource}
-                      columns={columns}
-                    />
-                  </TableWrapper>
-                </div>
-              )}
+                  <div>
+                    <TableWrapper className="table-data-view table-responsive">
+                      <Table
+                        rowSelection={rowSelection}
+                        pagination={{ pageSize: 10, showSizeChanger: true }}
+                        dataSource={crud}
+                        columns={columns}
+                      />
+                    </TableWrapper>
+                  </div>
+                )}
             </Cards>
           </Col>
         </Row>

@@ -19,22 +19,23 @@ const ViewUsers = () => {
       isLoading: state.crud.loading,
     };
   });
-  const { userData,setUserData } = useState({
-  });
+  const [userData, setUserData] = useState([]);
   const [state, setState] = useState({
     selectedRowKeys: [],
   });
   const { selectedRowKeys } = state;
 
   useEffect(() => {
-      AdminService.getUsers().then(results=>{
-          console.log(results.data)
-        //   setUserData(results.data)
-      })
+
+    AdminService.getUsers().then(results => {
+      setUserData(results.data)
+
+
+    })
     if (fbDataRead) {
       dispatch(fbDataRead());
     }
-  }, [dispatch,userData]);
+  }, [setUserData]);
   const dataSource = [];
 
   const handleDelete = id => {
@@ -50,7 +51,7 @@ const ViewUsers = () => {
   };
 
   if (crud.length)
-  crud.map((person, key) => {
+    crud.map((person, key) => {
       const { id, name, email, company, position, join, status, city, country, url } = person;
       return dataSource.push({
         key: key + 1,
@@ -131,6 +132,7 @@ const ViewUsers = () => {
     onChange: onSelectChange,
   };
 
+
   return (
     <RecordViewWrapper>
       <PageHeader
@@ -163,17 +165,17 @@ const ViewUsers = () => {
                   <Spin />
                 </div>
               ) : (
-                <div>
-                  <TableWrapper className="table-data-view table-responsive">
-                    <Table
-                      rowSelection={rowSelection}
-                      pagination={{ pageSize: 10, showSizeChanger: true }}
-                      dataSource={dataSource}
-                      columns={columns}
-                    />
-                  </TableWrapper>
-                </div>
-              )}
+                  <div>
+                    <TableWrapper className="table-data-view table-responsive">
+                      <Table
+                        rowSelection={rowSelection}
+                        pagination={{ pageSize: 10, showSizeChanger: true }}
+                        dataSource={userData}
+                        columns={columns}
+                      />
+                    </TableWrapper>
+                  </div>
+                )}
             </Cards>
           </Col>
         </Row>

@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-d
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import { ConfigProvider } from 'antd';
 import store, { rrfProps } from './redux/store';
-import Admin from './routes/Admin';
+import Admin from './routes/admin';
 import SellerAdmin from './routes/SellerRouter';
 import UserRouter from './routes/UserRouter';
 import Auth from './routes/auth';
@@ -50,7 +50,7 @@ const ProviderConfig = () => {
     <ConfigProvider direction={rtl ? 'rtl' : 'ltr'}>
       <ThemeProvider theme={{ ...theme, rtl }}>
         <ReactReduxFirebaseProvider {...rrfProps}>
-        <ToastContainer />
+          <ToastContainer />
           <Router basename={process.env.PUBLIC_URL}>
             <div>
               <Switch>
