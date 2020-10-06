@@ -14,19 +14,19 @@ const validationSchema = yup.object().shape({
   email: yup.string()
     .email()
     .required("Email is required")
-    .test('duplicate-email-check','Duplicate email already exists',
-     async (value) => { // Notice this, adding curly braces will require you to put a return statement
-      return AuthSer.postEmailValidation({ email: value })
-           .then(result => {
-               console.log(result.error)
-               if (result.error) {
-                   return false
-               } else {
-                   return true
-               }
-           })
-           .catch(err => console.log(err))
-   }
+    .test('duplicate-email-check', 'Duplicate email already exists',
+      async (value) => { // Notice this, adding curly braces will require you to put a return statement
+        return AuthSer.postEmailValidation({ email: value })
+          .then(result => {
+            console.log(result.error)
+            if (result.error) {
+              return false
+            } else {
+              return true
+            }
+          })
+          .catch(err => console.log(err))
+      }
     ),
   password: yup.string()
     .required("Password is required")
@@ -35,13 +35,33 @@ const validationSchema = yup.object().shape({
     .oneOf([yup.ref('password'), null], 'Passwords must match').required("required"),
   phone: yup.string()
     .required("phone number is required")
-    .test('phone','phone number must 10', async(value)=>{
+    .test('phone', 'phone number must 10', async (value) => {
       console.log(value)
     }),
   otp: yup.string()
-      .required("otp required")
+    .required("otp required")
+    .test('otp', "invalid otp",
+      function (otpValue) {
+        return new Promise(() => {
+          fetch("/url").then((otpFromApi) => {
 
+            if (otpFromApi === otpValue)
+              return true
+            else
+              return false
+          }).catch((error) => {
+            console.log(error, "error in otp fetching from api")
+            return false
+
+          })
+        })
+
+
+      })
 })
+
+
+
 
 export default class Register extends Component {
   onSubmit = async (userData) => {
@@ -49,22 +69,22 @@ export default class Register extends Component {
     console.log(userData, "userData")
     console.log(this.props)
     this.props.handleReset()
-    AuthSer.postRegistration(userData).then(result=>{
+    AuthSer.postRegistration(userData).then(result => {
       console.log(result.data)
       toast.success('successfully registration')
       this.props.handleReset()
 
     })
   };
- totest = () => {
-  alert('test')
-  toast.success('test')
-}
+  totest = () => {
+    alert('test')
+    toast.success('test')
+  }
   render() {
     // const { errorMessage } = this.state;
     return (
       <div className="app-container" style={{ backgroundColor: '#cedaf3' }}>
-      {/* <ToastContainer /> */}
+        {/* <ToastContainer /> */}
         <div className="reg_form">
           <div className="row mt-5">
             <div className="col-sm-9 col-md-7 col-lg-10 mx-auto">
@@ -193,7 +213,7 @@ export default class Register extends Component {
                                 </div>
                               </div>
                               {errors.otp && touched.otp && (
-                                  <ErrorText title={errors.otp} />)}
+                                <ErrorText title={errors.otp} />)}
                             </div>
                           </div>
                           <button
@@ -203,7 +223,7 @@ export default class Register extends Component {
                           >
                             Continue
                        </button>
-                       {/* <button type='button' onClick={this.totest} >Test</button> */}
+                          {/* <button type='button' onClick={this.totest} >Test</button> */}
                           <div className="mt-4">
                             <div className="float-right pr-2">
                               <Link>
