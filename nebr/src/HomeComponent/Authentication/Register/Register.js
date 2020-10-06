@@ -7,6 +7,7 @@ import ErrorText from '../../../components/common/ErrorText';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+const phoneRegExp = /^\+?\d[\d -]{8,12}\d$/
 const validationSchema = yup.object().shape({
   user_name: yup.string()
 
@@ -25,7 +26,7 @@ const validationSchema = yup.object().shape({
               return true
             }
           })
-          .catch(err => console.log(err))
+          .catch(error => console.log(error))
       }
     ),
   password: yup.string()
@@ -33,32 +34,26 @@ const validationSchema = yup.object().shape({
     .min(6, " Password length is 6"),
   confirmPassword: yup.string()
     .oneOf([yup.ref('password'), null], 'Passwords must match').required("required"),
-  phone: yup.string()
-    .required("phone number is required")
-    .test('phone', 'phone number must 10', async (value) => {
-      console.log(value)
-    }),
+  phone: yup.string().matches(phoneRegExp, 'Phone number is not valid').required(),
   otp: yup.string()
     .required("otp required")
     .test('otp', "invalid otp",
-      function (otpValue) {
-        return new Promise(() => {
-          fetch("/url").then((otpFromApi) => {
-
-            if (otpFromApi === otpValue)
-              return true
-            else
-              return false
-          }).catch((error) => {
-            console.log(error, "error in otp fetching from api")
+      async function (otpValue) {
+        try {
+          const otpRes = await AuthSer.getOtp()
+          const resolvedOtp = await otpRes.json()
+          if (resolvedOtp === otpValue)
+            return true
+          else
             return false
-
-          })
-        })
-
-
+        }
+        catch (error) {
+          console.log("error in otp api fetching", error)
+          return false
+        }
       })
 })
+
 
 
 
@@ -187,6 +182,11 @@ export default class Register extends Component {
                                 type="text"
                                 className="form-control"
                                 onChange={handleChange}
+                                onBlur={(e) => {
+                                  if (values.phone.match(phoneRegExp))
+                                    console.log(typeof values.phone, "phone number")
+                                  handleBlur(e)
+                                }}
                                 placeholder="Phone"
                                 value={values.phone}
                               />
