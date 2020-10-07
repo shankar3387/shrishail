@@ -2,10 +2,9 @@ import React, { lazy, Suspense } from 'react';
 import { Spin } from 'antd';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import withAdminLayout from '../../layout/AdminLayout/withAdminLayout';
-import SellerRouterAdmin from '../admin/SellerRouterAdmin';
-import UsersRouterAdmin from '../admin/UsersRouterAdmin';
 
-const Dashboard = lazy(() => import('./dashboard'));
+
+// const Dashboard = lazy(() => import('./dashboard'));
 const Ecommerce = lazy(() => import('./ecommerce'));
 const Charts = lazy(() => import('./charts'));
 const Pages = lazy(() => import('./pages'));
@@ -33,9 +32,9 @@ const Admin = () => {
           </div>
         }
       >
-        <Route path={path} component={Dashboard} />
+        {/* <Route path={path} component={Dashboard} />
         <Route path={`${path}/sellers`} component={SellerRouterAdmin} />
-        <Route path={`${path}/Users`} component={UsersRouterAdmin} />
+        <Route path={`${path}/Users`} component={UsersRouterAdmin} /> */}
         {/* <Route path={`${path}/ecommerce`} component={Ecommerce} />
         <Route path={`${path}/charts`} component={Charts} />
         <Route path={`${path}/pages`} component={Pages} />

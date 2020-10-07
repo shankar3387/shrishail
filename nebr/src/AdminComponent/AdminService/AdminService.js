@@ -3,7 +3,7 @@ require('dotenv').config()
 
 export default {
     getSellers: async () => {
-      return DataService.post('/Auth/userregistration')
+      return DataService.get('/Auth/sellerRegistration')
     },
     getUsers: async () => {
         return DataService.get('/Auth/userregistration')

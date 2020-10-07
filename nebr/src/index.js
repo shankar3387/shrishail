@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 // import './static/css/jVectorMap.css';
-// import 'bootstrap/dist/css/bootstrap.css';
-// import 'font-awesome/scss/font-awesome.scss';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'font-awesome/scss/font-awesome.scss';
 import 'react-toastify/dist/ReactToastify.css';
 import * as serviceWorker from './serviceWorker';
 

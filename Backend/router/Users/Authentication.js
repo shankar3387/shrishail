@@ -44,6 +44,13 @@ router.post(`/sellerRegistration`, async(req, res) => {
     })
 
 })
+router.get(`/sellerRegistration`, async(req, res) => {
+    // let conditions = {
+    //     login_type: { $ne: 'admin' }
+    // }
+    let seller = await sellerRegistration.find()
+    return res.status(200).send(seller);
+});
 router.post('/emailValidation', async(req,res)=>{
     let isEmailExists = await userRegistration.findOne({ email: req.body.email });
     return res.status(200).send({

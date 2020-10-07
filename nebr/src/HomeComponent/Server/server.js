@@ -48,8 +48,9 @@ export default {
     }
     console.log(process.env)
     // querystring.stringify(Newapi)
-    return DataService.get(`${ApiUrl}/sendmessage.php?${querystring.stringify(Newapi)}`)
-    // let res = await axios.get(`${ApiUrl}/sendmessage.php?${querystring.stringify(Newapi)}`);
-    // return res
+    // {headers:{'Access-Control-Allow-Origin':'*'}}/
+    // return DataService.get(`${ApiUrl}/sendmessage.php?${querystring.stringify(Newapi)}`)
+    let res = await axios.get(`${ApiUrl}/sendmessage.php?${querystring.stringify(Newapi)}`);
+    return res
   }
 }
