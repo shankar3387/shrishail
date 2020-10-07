@@ -69,11 +69,11 @@ export default class Register extends Component {
     const { email, password, confirmPassword, userName, phone, otp } = userData
     console.log(userData, "userData")
     console.log(this.props)
-    this.props.handleReset()
+    // this.props.handleReset()
     AuthSer.postRegistration(userData).then(result => {
       console.log(result.data)
       toast.success('successfully registration')
-      this.props.handleReset()
+      // this.props.handleReset()
 
     })
   };
