@@ -12,6 +12,7 @@ const client = axios.create({
   headers: {
     // Authorization: `Bearer ${getItem('access_token')}`,
     'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin':'*',
   },
 });
 
@@ -62,7 +63,7 @@ client.interceptors.request.use(config => {
   // For example tag along the bearer access token to request header or set a cookie
   const requestConfig = config;
   const { headers } = config;
-  requestConfig.headers = { ...headers, Authorization: `Bearer ${getItem('access_token')}` };
+  requestConfig.headers = { ...headers };
 
   return requestConfig;
 });

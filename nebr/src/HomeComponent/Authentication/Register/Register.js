@@ -236,7 +236,7 @@ export default class Register extends Component {
                             </div>
                             <p className="mb-0 pt-1">Want to Login as a SuperNebr Seller?</p>
                           </div>
-                          <img alt='logo' style={{ width: 100 }} src={require()} />
+                          {/* <img alt='logo' style={{ width: 100 }} src={require()} /> */}
                         </form>)
                     }}
                   </Formik>
