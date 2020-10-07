@@ -185,8 +185,9 @@ const ThemeLayout = WrappedComponent => {
                   </Button>
                   <Link className="striking-logo" to="/admin">
                     <img
-                      src={!darkMode ? require(`../static/img/Logo_Dark.svg`) : require(`../static/img/Logo_white.png`)}
+                      src={!darkMode ? require(`../static/img/companyLogo.png`) : require(`../static/img/companyLogo.png`)}
                       alt=""
+
                     />
                   </Link>
                 </Col>

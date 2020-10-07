@@ -126,7 +126,7 @@ const Invoice = () => {
                 <Row>
                   <Col sm={12} xs={24}>
                     <figure>
-                      <img className="top-img" src={require('../../static/img/Logo_Dark.svg')} alt="logo" />
+                      <img className="top-img" src={require('../../static/img/companyLogo.png')} alt="logo" />
                     </figure>
                   </Col>
                   <Col sm={12} xs={24}>
