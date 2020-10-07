@@ -187,8 +187,8 @@ const ThemeLayout = WrappedComponent => {
                     <img
                       src={
                         !darkMode
-                          ? require(`../../static/img/Logo_Dark.svg`)
-                          : require(`../../static/img/Logo_white.png`)
+                          ? require(`../../static/img/companyLogo.png`)
+                          : require(`../../static/img/companyLogo.png`)
                       }
                       alt=""
                     />

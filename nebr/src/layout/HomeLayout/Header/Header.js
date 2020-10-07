@@ -21,7 +21,7 @@ const HomeHeader = () => {
 
     console.log(communityName);
     // if (localStorage.getItem('communityValue') !== communityName) {
-      setCommunityName(localStorage.getItem('communityValue'));
+    setCommunityName(localStorage.getItem('communityValue'));
     // }
     // updateCommunity();
     console.log('useEffect, fetchData here');
@@ -35,7 +35,7 @@ const HomeHeader = () => {
   // const [selcter] = useSelector()
   // console.log(state)
 
-  
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-white fixed-top">
@@ -62,9 +62,9 @@ const HomeHeader = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <Link to="seller_account" className="nav-link reg_sel" href="seller_account.html">
+                <a href="/seller_account/#Register" className="nav-link reg_sel" >
                   Register as a Seller
-                </Link>
+                </a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="home_login.html#shop">

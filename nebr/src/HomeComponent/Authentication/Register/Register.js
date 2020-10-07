@@ -7,58 +7,58 @@ import ErrorText from '../../../components/common/ErrorText';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// const validationSchema = yup.object().shape({
-//   user_name: yup.string()
+const validationSchema = yup.object().shape({
+  user_name: yup.string()
 
-//     .required("user name is required"),
-//   email: yup.string()
-//     .email()
-//     .required("Email is required")
-//     .test('duplicate-email-check', 'Duplicate email already exists',
-//       async (value) => { // Notice this, adding curly braces will require you to put a return statement
-//         return AuthSer.postEmailValidation({ email: value })
-//           .then(result => {
-//             console.log(result.error)
-//             if (result.error) {
-//               return false
-//             } else {
-//               return true
-//             }
-//           })
-//           .catch(err => console.log(err))
-//       }
-//     ),
-//   password: yup.string()
-//     .required("Password is required")
-//     .min(6, " Password length is 6"),
-//   confirmPassword: yup.string()
-//     .oneOf([yup.ref('password'), null], 'Passwords must match').required("required"),
-//   phone: yup.string()
-//     .required("phone number is required")
-//     .test('phone', 'phone number must 10', async (value) => {
-//       console.log(value)
-//     }),
-//   otp: yup.string()
-//     .required("otp required")
-//     .test('otp', "invalid otp",
-//       function (otpValue) {
-//         return new Promise(() => {
-//           fetch("/url").then((otpFromApi) => {
+    .required("user name is required"),
+  email: yup.string()
+    .email()
+    .required("Email is required")
+    .test('duplicate-email-check', 'Duplicate email already exists',
+      async (value) => { // Notice this, adding curly braces will require you to put a return statement
+        return AuthSer.postEmailValidation({ email: value })
+          .then(result => {
+            console.log(result.error)
+            if (result.error) {
+              return false
+            } else {
+              return true
+            }
+          })
+          .catch(err => console.log(err))
+      }
+    ),
+  password: yup.string()
+    .required("Password is required")
+    .min(6, " Password length is 6"),
+  confirmPassword: yup.string()
+    .oneOf([yup.ref('password'), null], 'Passwords must match').required("required"),
+  phone: yup.string()
+    .required("phone number is required")
+    .test('phone', 'phone number must 10', async (value) => {
+      console.log(value)
+    }),
+  otp: yup.string()
+    .required("otp required")
+    .test('otp', "invalid otp",
+      function (otpValue) {
+        return new Promise(() => {
+          fetch("/url").then((otpFromApi) => {
 
-//             if (otpFromApi === otpValue)
-//               return true
-//             else
-//               return false
-//           }).catch((error) => {
-//             console.log(error, "error in otp fetching from api")
-//             return false
+            if (otpFromApi === otpValue)
+              return true
+            else
+              return false
+          }).catch((error) => {
+            console.log(error, "error in otp fetching from api")
+            return false
 
-//           })
-//         })
+          })
+        })
 
 
-//       })
-// })
+      })
+})
 
 
 
@@ -99,7 +99,7 @@ export default class Register extends Component {
                       this.onSubmit(userData)
 
                     }}
-                  // validationSchema={validationSchema}
+                    validationSchema={validationSchema}
                   >
                     {props => {
                       const {
@@ -239,6 +239,7 @@ export default class Register extends Component {
                             </div>
                             <p className="mb-0 pt-1">Want to Login as a SuperNebr Seller?</p>
                           </div>
+                          <img alt='logo' style={{ width: 100 }} src={require()} />
                         </form>)
                     }}
                   </Formik>

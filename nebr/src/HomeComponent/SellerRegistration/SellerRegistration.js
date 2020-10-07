@@ -9,9 +9,9 @@ import FormSeller from './formSeller';
 const style = { background: '#0092ff', padding: '8px 0' };
 
 const SellerRegistration = () => {
- const registration = (e) =>{
-    console.log(e,'pat')
- }
+  const registration = (e) => {
+    console.log(e, 'pat')
+  }
   return (
     <>
       <Row>
@@ -164,6 +164,7 @@ const SellerRegistration = () => {
                 <div className="seller-form-text3">Register using the form and we will get in touch with you soon!</div>
               </div>
             </Col>
+
             <Col className="seller-contact-us column" span={12}>
               <FormSeller onFinsh={registration} />
             </Col>

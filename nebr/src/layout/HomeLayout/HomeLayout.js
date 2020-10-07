@@ -8,7 +8,7 @@ import TermsCondition from '../../HomeComponent/FooterComponent/TermsCondition/T
 import PrivacyPolicy from '../../HomeComponent/FooterComponent/PrivacyPolicy/PrivacyPolicy';
 import LicenseAgreement from '../../HomeComponent/FooterComponent/LicenseAgreement/LicenseAgreement';
 import Investors from '../../HomeComponent/FooterComponent/Investors/Investors';
-const  FooterComponentRoute = lazy(()=>import('../../HomeComponent/FooterComponent/FooterComponentRouter')) ;
+const FooterComponentRoute = lazy(() => import('../../HomeComponent/FooterComponent/FooterComponentRouter'));
 
 const SellerLogin = lazy(() => import('../../SellerComponent/Authentication/SellerLogin'));
 const Home = lazy(() => import('../../HomeComponent/Home/Home'));
