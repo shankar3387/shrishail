@@ -5,6 +5,7 @@ const path = require("path")
 const User = require('./router/User')
 
 const Authentication = require('./router/Users/Authentication')
+const SMS = require('./router/SmsApi/smsApi')
 const app = express();
 // require('./router/Users/Authentication')(app);
 require('dotenv').config()
@@ -24,6 +25,7 @@ app.listen(apiPort, () => {
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use('/Auth', Authentication)
+app.use('/sms', SMS)
 mongoose.connect(process.env.MONGODB_URI || `mongodb://localhost:27017/supernebr`);
 const root = require('path').join(__dirname,  "../nebr", "build")
 console.log(root)

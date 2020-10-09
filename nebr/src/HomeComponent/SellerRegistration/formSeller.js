@@ -185,7 +185,16 @@ const FormSeller = (props) => {
           }}
         />
       </Form.Item>
-      <Form.Item>
+      <Form.Item 
+        name="gstn"
+        label="GSTN"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your phone number!',
+          },
+        ]}
+      >
       <Radio.Group>
         <Radio value={true}>Taxable</Radio> <br />
         <Radio value={false}>Non Taxable</Radio>

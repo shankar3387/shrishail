@@ -4,16 +4,15 @@ import { getItem } from '../../utility/localStorageControl';
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
 const authHeader = () => ({
-  Authorization: `Bearer ${getItem('access_token')}`,
+  // Authorization: `Bearer ${getItem('access_token')}`,
+  'Content-Type': 'application/json',
+  'Access-Control-Allow-Origin':'*',
+  'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
 });
 
 const client = axios.create({
   baseURL: API_ENDPOINT,
-  headers: {
-    // Authorization: `Bearer ${getItem('access_token')}`,
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin':'*',
-  },
+  withCredentials: false,
 });
 
 class DataService {

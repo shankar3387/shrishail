@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component,useState } from 'react';
 import { Link } from 'react-router-dom';
 import AuthSer from '../../Server/server';
 import { Formik } from 'formik';
@@ -6,6 +6,7 @@ import * as yup from 'yup';
 import ErrorText from '../../../components/common/ErrorText';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Community from '../../CommunityModal/Community';
 const generateUniqueId = require('generate-unique-id');
 
 const validationSchema = yup.object().shape({
@@ -14,24 +15,7 @@ const validationSchema = yup.object().shape({
     .required("user name is required"),
   email: yup.string()
     .email()
-    .required("Email is required")
-    .test({
-      name:'duplicate-email-check', 
-      message:'Duplicate email already exists',
-      test: async (value) => { // Notice this, adding curly braces will require you to put a return statement
-        return AuthSer.postEmailValidation({ email: value })
-          .then(result => {
-            console.log(result.data)
-            if (result.data.error) {
-              return false
-            } else {
-              return true
-            }
-          })
-          .catch(err => console.log(err))
-      }
-    }
-    ),
+    .required("Email is required"),
   password: yup.string()
     .required("Password is required")
     .min(6, " Password length is 6"),
@@ -39,23 +23,7 @@ const validationSchema = yup.object().shape({
     .oneOf([yup.ref('password'), null], 'Passwords must match').required("required"),
   phone: yup.string()
     .required("phone number is required")
-    .test('phone', 'phone number must 10',(value)=>{
-      // console.log(error)
-      if(value && value.length === 10){
-        
-        console.log(value)
-        var reference_number = generateUniqueId({
-          length: 6,
-          useLetters: false
-      })
-        AuthSer.getOtp({phone:value,message:`otp number: ${reference_number}`}).then(result=>this.setState({otp:reference_number}))
-        return true
-      }else {
-        return false
-      }
-      // return true
-     
-    }),
+    .min(10,'phone number must 10'),
   otp: yup.string()
     .required("otp required")
     // .test('otp', "invalid otp")
@@ -65,6 +33,13 @@ const validationSchema = yup.object().shape({
 
 
 export default class Register extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      otp:''
+    }
+  }
+  
   onSubmit = async (userData) => {
     const { email, password, confirmPassword, userName, phone, otp } = userData
     console.log(userData, "userData")
@@ -77,12 +52,57 @@ export default class Register extends Component {
 
     })
   };
+  handleEmailFieldBlur = (props) => {
+    const {values,setErrors, errors} = props
+    AuthSer.postEmailValidation({ email: values.email })
+          .then(result => {
+            console.log(result.data.error)
+            if (result.data.error) {
+              setErrors({...errors,email:'Email already exists'})
+            }else {
+
+            }
+          })
+          .catch(err => console.log(err))
+    console.log(props)
+    // console.log(e.target.value,'onblur')
+    return false
+    // do something
+    // saveUserForm(this.props.values)    
+  }
+  handlePhoneBlur = (props) => {
+    const {values,setErrors} = props
+    this.setState({
+      otp:123
+    })
+  }
+  handleOtpBlur = (props) =>{
+    console.log(this.state.otp)
+    const {values,setErrors, errors,setFieldValue} = props
+    if(values.otp!==this.state.otp){
+      setErrors({...errors,otp:'Opt not valid'})
+    }else {
+      setFieldValue('otp',2222)
+    }
+  }
+  logChange = (e) =>{
+    console.log(e)
+  }
+  getOtp(value){
+    var reference_number = generateUniqueId({
+      length: 4,
+      useLetters: false
+  })
+    // AuthSer.getOtp({phone:value,message:`otp number: ${reference_number}`})
+    // .then(result=>this.setState({otp:reference_number}))
+  }
   totest = () => {
     alert('test')
     toast.success('test')
   }
   render() {
     // const { errorMessage } = this.state;
+    // const { optvalue,setOtp} = useState();
     return (
       <div className="app-container" style={{ backgroundColor: '#cedaf3' }}>
         {/* <ToastContainer /> */}
@@ -93,9 +113,11 @@ export default class Register extends Component {
                 <div className="card-body">
                   <h5 className="card-title text-center">Community Signup</h5>
                   <Formik
+                    enableReinitialize = {true}
                     initialValues={{ email: "", password: "", confirmPassword: "", user_name: "", phone: "", otp: "" }}
                     onSubmit={(userData) => {
-                      this.onSubmit(userData)
+                      
+                      // this.onSubmit(userData)
 
                     }}
                     validationSchema={validationSchema}>
@@ -108,11 +130,22 @@ export default class Register extends Component {
                         handleReset,
                         handleChange,
                         handleSubmit,
+                        setErrors,
+                        setFieldValue,
 
                       } = props;
                       return (
-                        <form className="form-signin">
+                        <form onSubmit={handleSubmit} className="form-signin">
                           <div className="form-group" />
+                          <div className="form-group">
+                            <Community logChange={this.logChange} name="community" type='text' />
+                            {/* {errors.user_name
+                              && touched.user_name
+                              && (
+                                <ErrorText title={errors.user_name
+                                } />
+                              )} */}
+                          </div>
                           <div className="form-group">
                             <input
                               name="user_name"
@@ -137,8 +170,9 @@ export default class Register extends Component {
                               name="email"
                               type="email"
                               className="form-control"
-                              onChange={handleChange}
-                              onBlur={handleBlur}
+                              onBlur={()=>{
+                                this.handleEmailFieldBlur(props)
+                              }}
                               placeholder="Email"
                               value={values.email}
 
@@ -188,6 +222,9 @@ export default class Register extends Component {
                                 className="form-control"
                                 onChange={handleChange}
                                 placeholder="Phone"
+                                onBlur={()=>{
+                                this.handlePhoneBlur(props)
+                              }}
                                 value={values.phone}
                               />
                               {errors.phone && touched.phone && (
@@ -202,7 +239,10 @@ export default class Register extends Component {
                                     name="otp"
                                     type="text"
                                     className="form-control"
-                                    onChange={handleChange}
+                                    // onChange={handleChange}
+                                    onBlur={()=>{
+                                      this.handleOtpBlur(props)
+                                    }}
                                     placeholder="OTP"
                                     value={values.otp}
                                   />
@@ -217,7 +257,6 @@ export default class Register extends Component {
                             </div>
                           </div>
                           <button
-                            onClick={handleSubmit}
                             className="btn btn-lg btn-warning text-white btn-block text-uppercase"
                             type="submit"
                           >

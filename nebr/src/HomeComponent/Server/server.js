@@ -32,11 +32,11 @@ export default {
     return res.data || [];
   },
 
-  getOtp: async (apidata) => {
+  getOtp: (apidata) => {
     const ApiUserName = 'Ravikanth';
     const ApiUserPassword = 'SMS@Pass1';
     const ApiUserSenderId = 'TestID';
-    const ApiUrl = 'http://login.bulksmsgateway.in';
+    const ApiUrl = 'https://login.bulksmsgateway.in/sendmessage.php?';
     const type = 3;
     const Newapi = {
       user: ApiUserName,
@@ -48,9 +48,21 @@ export default {
     }
     console.log(process.env)
     // querystring.stringify(Newapi)
+    var config = {
+      method: 'GET',
+      url: `${ApiUrl}${querystring.stringify(Newapi)}` ,
+      headers: { 
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin':'*',
+        'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+      },
+    };
+    
+   return axios(config)
+    
     // {headers:{'Access-Control-Allow-Origin':'*'}}/
-    return DataService.get(`${ApiUrl}/sendmessage.php?${querystring.stringify(Newapi)}`)
+  //  return DataService.get(`${ApiUrl}${querystring.stringify(Newapi)}`)
     // let res = await axios.get(`${ApiUrl}/sendmessage.php?${querystring.stringify(Newapi)}`);
-    return res
+    // return res
   }
 }
